@@ -5,7 +5,7 @@ function char {
   echo -ne $char
 }
 
-function spin {
+function swing {
   spinner=('|' '/' '-' '\')
 }
 
@@ -50,5 +50,65 @@ do
     y=$(($y + 1))
     tput cup $y $x
     char
+  fi
+
+  if [[ $key = i ]]
+  then
+    swing
+    for i in "${spinner[@]}"
+    do
+      by=$(($y - 1))
+      tput cup $by $x
+      echo -ne "\x1b[93m $i \x1b[0m"
+      sleep 0.1
+      clear
+      tput cup $y $x
+      char
+    done
+  fi
+
+  if [[ $key = k ]]
+  then
+    swing
+    for i in "${spinner[@]}"
+    do
+      by=$(($y + 1))
+      tput cup $by $x
+      echo -ne "\x1b[93m $i \x1b[0m"
+      sleep 0.1
+      clear
+      tput cup $y $x
+      char
+    done
+  fi
+
+  if [[ $key = l ]]
+  then
+    swing
+    for i in "${spinner[@]}"
+    do
+      bx=$(($x + 2))
+      tput cup $y $bx
+      echo -ne "\x1b[93m $i \x1b[0m"
+      sleep 0.1
+      clear
+      tput cup $y $x
+      char
+    done
+  fi
+
+  if [[ $key = j ]]
+  then
+    swing
+    for i in "${spinner[@]}"
+    do
+      bx=$(($x - 2))
+      tput cup $y $bx
+      echo -ne "\x1b[93m $i \x1b[0m"
+      sleep 0.1
+      clear
+      tput cup $y $x
+      char
+    done
   fi
 done
