@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function char {
+  char='\x1b[1;94m @ \x1b[0m'
+  echo -ne $char
+}
+
+function spin {
+  spinner=('|' '/' '-' '\')
+}
+
+clear
+tput civis
+x=2
+y=2
+tput cup $y $x
+char
+
+while [ 1 ]
+do
+  read -rsn1 key
+
+  if [[ $key = d ]]
+  then
+    clear
+    x=$(($x + 1))
+    tput cup $y $x
+    char
+  fi
+
+  if [[ $key = a ]]
+  then
+    clear
+    x=$(($x -1))
+    tput cup $y $x
+    char
+  fi
+
+  if [[ $key = w ]]
+  then
+    clear
+    y=$(($y - 1))
+    tput cup $y $x
+    char
+  fi
+
+  if [[ $key = s ]]
+  then
+    clear
+    y=$(($y + 1))
+    tput cup $y $x
+    char
+  fi
+done
